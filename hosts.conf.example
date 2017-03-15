@@ -2,3 +2,4 @@
 # <name>;<host>;<port>;<user>;<options>;<command>
 
 localhost;127.0.0.1;22;hellcat;-X
+localhost;localhost;22;hellcat;-X;ls -l

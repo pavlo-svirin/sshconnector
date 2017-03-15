@@ -244,14 +244,16 @@ void Config::GetSshCommandById( char *cmd, int index )
 	strncpy( item_command, hosts[index].command.c_str(), hosts[index].command.length() + 1 );
 
 	strcpy( cmd, "ssh " );
-	strcat( cmd, item_host );
-	strcat( cmd, " -p " );
+	strcat( cmd, "-p " );
 	strcat( cmd, item_port );
 	strcat( cmd, " -l " );
 	strcat( cmd, item_user );
 	strcat( cmd, " " );
 	strcat( cmd, item_options);
-	std::cout << cmd << std::endl;
+	strcat( cmd, " " );
+	strcat( cmd, item_host );
+	strcat( cmd, " " );
+	strcat( cmd, item_command );
 }
 
 /*
