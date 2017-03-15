@@ -13,6 +13,8 @@ For full terms see the included COPYING file.
 #include "config.h"
 #include "sshconnector.h"
 
+#include "iostream"
+
 /***********************************************************************
 
 main
@@ -124,9 +126,17 @@ void Config::SplitLine( char *line )
 		
 		if( result.size() == 4 ) 
 		{
-			t_host host = { result[0], result[1], result[2], result[3] };
+			t_host host = { result[0], result[1], result[2], result[3], "", "" };
 			hosts.push_back( host );
 		}
+		else if( result.size() == 5 ){
+			t_host host = { result[0], result[1], result[2], result[3], result[4], "" };
+			hosts.push_back( host );
+		} 
+		else if( result.size() == 6 ){
+			t_host host = { result[0], result[1], result[2], result[3], result[4], result[5] };
+			hosts.push_back( host );
+		} 
 	}
 }
 
@@ -227,12 +237,21 @@ void Config::GetSshCommandById( char *cmd, int index )
 	char * item_user = new char[hosts[index].user.length() + 1];
 	strncpy( item_user, hosts[index].user.c_str(), hosts[index].user.length() + 1 );
 
+	char * item_options = new char[hosts[index].options.length() + 1];
+	strncpy( item_options, hosts[index].options.c_str(), hosts[index].options.length() + 1 );
+
+	char * item_command = new char[hosts[index].command.length() + 1];
+	strncpy( item_command, hosts[index].command.c_str(), hosts[index].command.length() + 1 );
+
 	strcpy( cmd, "ssh " );
 	strcat( cmd, item_host );
 	strcat( cmd, " -p " );
 	strcat( cmd, item_port );
 	strcat( cmd, " -l " );
 	strcat( cmd, item_user );
+	strcat( cmd, " " );
+	strcat( cmd, item_options);
+	std::cout << cmd << std::endl;
 }
 
 /*

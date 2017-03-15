@@ -34,6 +34,8 @@ typedef struct t_host {
 	string host;
 	string port;
 	string user;
+	string options;
+	string command;
 } t_host;
 
 class Config {
